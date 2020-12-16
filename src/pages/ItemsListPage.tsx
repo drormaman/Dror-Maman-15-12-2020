@@ -1,24 +1,29 @@
-import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { itemsListState } from "../atoms/ItemAtom";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { exchangeRateToIlsState } from "../atoms/exchangeRate";
+
+import { List } from "../components/List";
 interface ItemsListPageProps {}
 
+const GET_EXCHANGE_RATE_INTERVAL = 10000;
+
 export const ItemsListPage: React.FC<ItemsListPageProps> = ({}) => {
-	const [itemsList, setItemsList] = useRecoilState(itemsListState);
-	return (
-		<div>
-			<ul>
-				{itemsList.map((item, i) => {
-					return (
-						<li key={i}>
-							<h5>{item.itemName}</h5>
-							<div>{item.price}</div>
-							<div>{item.onlineStore}</div>
-							<div>{item.estimatedDelivery.toDateString}</div>
-						</li>
-					);
-				})}
-			</ul>
-		</div>
+	const [exchangeRateToILS, setExchangeRateToILS] = useRecoilState<number>(
+		exchangeRateToIlsState
 	);
+
+	useEffect(() => {
+		const intervalId = setInterval(async () => {
+			const res = await fetch(
+				"https://api.exchangeratesapi.io/latest?base=USD"
+			);
+			const { rates } = await res.json();
+			if (rates["ILS"]) {
+				setExchangeRateToILS(rates["ILS"]);
+			}
+		}, GET_EXCHANGE_RATE_INTERVAL);
+		return () => clearInterval(intervalId);
+	}, []);
+
+	return <List />;
 };

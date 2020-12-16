@@ -22,7 +22,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 	return (
 		<AppBar>
 			<Toolbar>
-				<NavBarHeader variant="h6">Ship4U</NavBarHeader>
+				<NavBarHeader variant="h6">
+					<NavBarLink to="/">Ship4U</NavBarLink>
+				</NavBarHeader>
 				<Button>
 					<NavBarLink to="/list">{"Ordered Items"}</NavBarLink>
 				</Button>
