@@ -3,7 +3,7 @@ export interface Item {
 	onlineStore: string;
 	price: number;
 	estimatedDelivery: Date;
-	received: boolean;
+	received?: boolean;
 }
 
 export interface Store {

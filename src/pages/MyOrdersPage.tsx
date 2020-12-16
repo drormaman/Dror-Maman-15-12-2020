@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { exchangeRateToIlsState } from "../atoms/exchangeRate";
-import { List } from "../components/List";
+import { MyOrdersList } from "../components/MyOrdersList";
 interface MyOrdersPageProps {}
 
 const GET_EXCHANGE_RATE_INTERVAL = 10000;
@@ -24,5 +24,5 @@ export const MyOrdersPage: React.FC<MyOrdersPageProps> = ({}) => {
 		return () => clearInterval(intervalId);
 	}, []);
 
-	return <List />;
+	return <MyOrdersList />;
 };
