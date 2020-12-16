@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -13,9 +13,14 @@ const NavBarLink = styled(NavLink)`
 	color: white;
 	text-decoration: none;
 	flex-grow: 1;
+	padding-left: 12px;
 	&:visited {
 		color: white;
 	}
+`;
+
+const LinksDiv = styled.div`
+	display: flex;
 `;
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
@@ -25,12 +30,14 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 				<NavBarHeader variant="h6">
 					<NavBarLink to="/">Ship4U</NavBarLink>
 				</NavBarHeader>
-				<Button>
-					<NavBarLink to="/list">{"Ordered Items"}</NavBarLink>
-				</Button>
-				<Button>
-					<NavBarLink to="/received">{"Recieved Items"}</NavBarLink>
-				</Button>
+				<LinksDiv>
+					<NavBarLink to="/list">
+						<Typography variant="subtitle1">{"My Orders"}</Typography>
+					</NavBarLink>
+					<NavBarLink to="/received">
+						<Typography variant="subtitle1">{"Recieved Items"}</Typography>
+					</NavBarLink>
+				</LinksDiv>
 			</Toolbar>
 		</AppBar>
 	);

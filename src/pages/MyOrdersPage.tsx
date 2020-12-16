@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { exchangeRateToIlsState } from "../atoms/exchangeRate";
-
 import { List } from "../components/List";
-interface ItemsListPageProps {}
+interface MyOrdersPageProps {}
 
 const GET_EXCHANGE_RATE_INTERVAL = 10000;
 
-export const ItemsListPage: React.FC<ItemsListPageProps> = ({}) => {
-	const [exchangeRateToILS, setExchangeRateToILS] = useRecoilState<number>(
+export const MyOrdersPage: React.FC<MyOrdersPageProps> = ({}) => {
+	const setExchangeRateToILS = useSetRecoilState<number>(
 		exchangeRateToIlsState
 	);
 

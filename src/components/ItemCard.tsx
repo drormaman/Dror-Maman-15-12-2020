@@ -4,6 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { exchangeRateToIlsState } from "../atoms/exchangeRate";
 import { itemsListState } from "../atoms/Items";
 import { Button, Card, Divider, Typography } from "@material-ui/core";
+import { formatDate, numberWithThousandsCommas } from "../helpers";
 import CheckIcon from "@material-ui/icons/Check";
 import styled from "styled-components";
 
@@ -20,18 +21,6 @@ const StyledCardHeader = styled.header`
 	display: flex;
 	justify-content: space-between;
 `;
-
-function numberWithThousandsCommas(price: number): string {
-	const fixedPrice: string = `${price.toFixed(2)}`;
-	return fixedPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function formatDate(date: Date): string {
-	const dd: string = date.getDate().toString().padStart(2, "0");
-	const mm: string = (date.getMonth() + 1).toString().padStart(2, "0");
-	const yyyy: string = date.getFullYear().toString();
-	return `${dd}/${mm}/${yyyy}`;
-}
 
 export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 	const exchangeRateToILS = useRecoilValue(exchangeRateToIlsState);
