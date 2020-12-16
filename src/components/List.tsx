@@ -7,7 +7,7 @@ import {
 	StyledContainer,
 	StyledListContainer,
 	StyledTab
-} from "./styled/StyledList";
+} from "./styled/StyledListComponents";
 
 interface ListProps {}
 

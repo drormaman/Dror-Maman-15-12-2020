@@ -3,24 +3,17 @@ import { Item } from "../models";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { exchangeRateToIlsState } from "../atoms/exchangeRate";
 import { itemsListState } from "../atoms/Items";
-import { Button, Card, Divider, Typography } from "@material-ui/core";
+import { Button, Divider, Typography } from "@material-ui/core";
 import { formatDate, numberWithThousandsCommas } from "../helpers";
+import {
+	StyledItemCard,
+	StyledCardHeader
+} from "./styled/StyledCardComponents";
 import CheckIcon from "@material-ui/icons/Check";
-import styled from "styled-components";
 
 interface ItemCardProps {
 	item: Item;
 }
-
-const StyledItemCard = styled(Card)`
-	padding: 16px;
-	margin-bottom: 12px;
-`;
-
-const StyledCardHeader = styled.header`
-	display: flex;
-	justify-content: space-between;
-`;
 
 export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 	const exchangeRateToILS = useRecoilValue(exchangeRateToIlsState);

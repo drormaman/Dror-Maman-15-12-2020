@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { notReceivedItemsState } from "../atoms/Items";
 import { ItemCard } from "./ItemCard";
-import { StyledList } from "./styled/StyledList";
+import { StyledList } from "./styled/StyledListComponents";
 
 interface ItemsListProps {}
 

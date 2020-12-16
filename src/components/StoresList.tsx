@@ -1,22 +1,19 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { storesListState } from "../atoms/Items";
+import { StoreCard } from "./StoreCard";
+import { StyledList } from "./styled/StyledListComponents";
+
 interface StoresListProps {}
 
 export const StoresList: React.FC<StoresListProps> = ({}) => {
 	const storesList = useRecoilValue(storesListState);
 
 	return (
-		<ul>
+		<StyledList>
 			{storesList.map((store, i) => {
-				return (
-					<li key={i}>
-						<h5>{store.storeName}</h5>
-						<div>{store.sumOfItemsPrices}</div>
-						<div>{store.numOfItems}</div>
-					</li>
-				);
+				return <StoreCard key={i} store={store} />;
 			})}
-		</ul>
+		</StyledList>
 	);
 };
