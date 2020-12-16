@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "./components/NavBar";
 import { MyOrdersPage } from "./pages/MyOrdersPage";
@@ -11,7 +11,7 @@ const Main = styled.main`
 
 function App() {
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<NavBar />
 			<Main>
 				<Switch>
@@ -20,7 +20,7 @@ function App() {
 					<Route exact path="/received" component={ReceivedItemsPage} />
 				</Switch>
 			</Main>
-		</BrowserRouter>
+		</HashRouter>
 	);
 }
 
