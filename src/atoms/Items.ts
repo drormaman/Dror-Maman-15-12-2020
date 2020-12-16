@@ -11,7 +11,11 @@ export const receivedItemsState = selector<Item[]>({
 	key: "receivedItemsState",
 	get: ({ get }) => {
 		const items = get(itemsListState);
-		const received = items.filter(item => item.received);
+		const received = items
+			.filter(item => item.received)
+			.sort(
+				(a, b) => b.estimatedDelivery.getTime() - a.estimatedDelivery.getTime()
+			);
 		return received;
 	}
 });
@@ -20,7 +24,11 @@ export const notReceivedItemsState = selector<Item[]>({
 	key: "notReceivedItemsState",
 	get: ({ get }) => {
 		const items = get(itemsListState);
-		const notReceived = items.filter(item => !item.received);
+		const notReceived = items
+			.filter(item => !item.received)
+			.sort(
+				(a, b) => a.estimatedDelivery.getTime() - b.estimatedDelivery.getTime()
+			);
 		return notReceived;
 	}
 });
