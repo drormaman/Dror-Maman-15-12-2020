@@ -1,12 +1,12 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { itemsListState } from "../atoms/Items";
+import { useRecoilValue } from "recoil";
+import { notReceivedItemsState } from "../atoms/Items";
 import { ItemCard } from "./ItemCard";
 
 interface ItemsListProps {}
 
 export const ItemsList: React.FC<ItemsListProps> = ({}) => {
-	const [itemsList, setItemsList] = useRecoilState(itemsListState);
+	const itemsList = useRecoilValue(notReceivedItemsState);
 	return (
 		<div>
 			{itemsList.map((item, i) => {

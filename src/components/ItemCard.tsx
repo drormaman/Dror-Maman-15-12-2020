@@ -1,7 +1,8 @@
 import React from "react";
 import { Item } from "../models";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { exchangeRateToIlsState } from "../atoms/exchangeRate";
+import { itemsListState } from "../atoms/Items";
 import { Button, Card, Divider, Typography } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import styled from "styled-components";
@@ -34,6 +35,22 @@ function formatDate(date: Date): string {
 
 export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 	const exchangeRateToILS = useRecoilValue(exchangeRateToIlsState);
+	const setItemsList = useSetRecoilState(itemsListState);
+
+	function handleReceived(e: React.MouseEvent) {
+		setItemsList(prevItems => {
+			const updatedItems = prevItems.map(prevItem => {
+				if (item.itemName === prevItem.itemName) {
+					return {
+						...prevItem,
+						received: true
+					};
+				}
+				return prevItem;
+			});
+			return updatedItems;
+		});
+	}
 
 	return (
 		<StyledItemCard>
@@ -45,7 +62,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 					variant="text"
 					size="small"
 					color="primary"
-					startIcon={<CheckIcon fontSize="small" />}>
+					startIcon={<CheckIcon fontSize="small" />}
+					onClick={handleReceived}>
 					Mark as received
 				</Button>
 			</StyledCardHeader>
