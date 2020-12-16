@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-	AppBar,
-	Button,
-	IconButton,
-	Paper,
-	Tab,
-	Tooltip
-} from "@material-ui/core";
+import { AppBar, IconButton, Tooltip } from "@material-ui/core";
 import { TabContext, TabList, TabPanel } from "@material-ui/lab";
 import { ItemsList } from "./ItemsList";
 import { StoresList } from "./StoresList";

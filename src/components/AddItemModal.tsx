@@ -1,33 +1,21 @@
-import {
-	Button,
-	InputAdornment,
-	Modal,
-	Paper,
-	Typography
-} from "@material-ui/core";
+import { Button, InputAdornment, Modal, Typography } from "@material-ui/core";
 import React from "react";
-import styled from "styled-components";
 import { Item } from "../models";
 import { useSetRecoilState } from "recoil";
 import { itemsListState } from "../atoms/Items";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Form, FormInput, InputWrapper } from "./styled/StyledFormComponents";
+import {
+	Form,
+	FormInput,
+	InputWrapper,
+	StyledModal
+} from "./styled/StyledFormComponents";
 
 interface AddItemModalProps {
 	open: boolean;
 	handleClose: () => void;
 }
-
-const StyledModal = styled(Paper)`
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 400px;
-	outline: none;
-	padding: 16px;
-`;
 
 export const AddItemModal: React.FC<AddItemModalProps> = ({
 	open,
@@ -107,7 +95,6 @@ export const AddItemModal: React.FC<AddItemModalProps> = ({
 							label="Price"
 							name="price"
 							type="number"
-							value={values.price}
 							onChange={handleChange}
 							onBlur={handleBlur}
 							placeholder="49.90"
@@ -125,12 +112,14 @@ export const AddItemModal: React.FC<AddItemModalProps> = ({
 							label="Estimated delivery date"
 							name="estDate"
 							type="date"
-							value={values.price}
+							value={values.estDate}
 							onChange={handleChange}
 							onBlur={handleBlur}
-							// placeholder="49.90"
-							helperText={touched.price && errors.price ? errors.price : " "}
-							error={touched.price && errors.price ? true : false}
+							placeholder="dd/mm/yyyy"
+							helperText={
+								touched.estDate && errors.estDate ? errors.estDate : " "
+							}
+							error={touched.estDate && errors.estDate ? true : false}
 							InputLabelProps={{
 								shrink: true
 							}}

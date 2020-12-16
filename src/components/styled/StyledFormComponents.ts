@@ -1,5 +1,18 @@
-import { TextField } from "@material-ui/core";
+import { Paper, TextField } from "@material-ui/core";
 import styled from "styled-components";
+
+export const StyledModal = styled(Paper)`
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 350px;
+	outline: none;
+	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
 
 export const FormInput = styled(TextField)`
 	width: 100%;
