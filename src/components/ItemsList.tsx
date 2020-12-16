@@ -1,23 +1,17 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { itemsListState } from "../atoms/Items";
+import { ItemCard } from "./ItemCard";
 
 interface ItemsListProps {}
 
 export const ItemsList: React.FC<ItemsListProps> = ({}) => {
 	const [itemsList, setItemsList] = useRecoilState(itemsListState);
 	return (
-		<ul>
+		<div>
 			{itemsList.map((item, i) => {
-				return (
-					<li key={i}>
-						<h5>{item.itemName}</h5>
-						<div>{item.price}</div>
-						<div>{item.onlineStore}</div>
-						<div>{item.estimatedDelivery.toDateString()}</div>
-					</li>
-				);
+				return <ItemCard key={i} item={item} />;
 			})}
-		</ul>
+		</div>
 	);
 };

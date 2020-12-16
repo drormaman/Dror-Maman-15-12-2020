@@ -7,6 +7,24 @@ export const itemsListState = atom<Item[]>({
 	default: mockData
 });
 
+export const receivedItemsState = selector<Item[]>({
+	key: "receivedItemsState",
+	get: ({ get }) => {
+		const items = get(itemsListState);
+		const received = items.filter(item => item.received);
+		return received;
+	}
+});
+
+export const notReceivedItemsState = selector<Item[]>({
+	key: "notReceivedItemsState",
+	get: ({ get }) => {
+		const items = get(itemsListState);
+		const notReceived = items.filter(item => !item.received);
+		return notReceived;
+	}
+});
+
 interface ReduceObj {
 	[key: string]: Store;
 }
