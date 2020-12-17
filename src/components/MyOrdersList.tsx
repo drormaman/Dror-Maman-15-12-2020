@@ -12,12 +12,10 @@ import AddIcon from "@material-ui/icons/Add";
 import { AddItemModal } from "./AddItemModal";
 import { MyOrdersBottomBar } from "./MyOrdersBottomBar";
 
-interface MyOrdersListProps {}
-
 const TAB_VALUE_ITEMS = "items";
 const TAB_VALUE_STORES = "stores";
 
-export const MyOrdersList: React.FC<MyOrdersListProps> = () => {
+export const MyOrdersList: React.FC = () => {
 	const [openModal, setOpenModal] = useState(false);
 	const [value, setValue] = useState("items");
 	const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {

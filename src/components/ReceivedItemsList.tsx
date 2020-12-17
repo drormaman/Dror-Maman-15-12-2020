@@ -10,11 +10,10 @@ import {
 	StyledTab
 } from "./styled/StyledListComponents";
 
-interface ReceivedItemsListProps {}
 const TAB_VALUE_ITEMS = "items";
 const TAB_VALUE_STORES = "stores";
 
-export const ReceivedItemsList: React.FC<ReceivedItemsListProps> = () => {
+export const ReceivedItemsList: React.FC = () => {
 	const [value, setValue] = useState("items");
 	const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
 		setValue(newValue);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
