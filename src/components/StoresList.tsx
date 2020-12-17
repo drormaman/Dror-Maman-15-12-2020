@@ -4,6 +4,7 @@ import {
 	storesOrderedListState,
 	storesReceivedListState
 } from "../atoms/Items";
+import { EmptyListMessage } from "./EmptyListMessage";
 import { StoreCard } from "./StoreCard";
 import { StyledList } from "./styled/StyledListComponents";
 
@@ -18,9 +19,13 @@ export const StoresList: React.FC<StoresListProps> = ({ received }) => {
 
 	return (
 		<StyledList>
-			{storesList.map((store, i) => {
-				return <StoreCard key={i} store={store} />;
-			})}
+			{storesList.length !== 0 ? (
+				storesList.map((store, i) => {
+					return <StoreCard key={i} store={store} />;
+				})
+			) : (
+				<EmptyListMessage />
+			)}
 		</StyledList>
 	);
 };
