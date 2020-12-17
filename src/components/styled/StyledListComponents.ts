@@ -39,3 +39,10 @@ export const StyledBottomBar = styled(AppBar)`
 	top: auto;
 	bottom: 0;
 `;
+export const StyledEmptyDiv = styled.div`
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 30px;
+`;

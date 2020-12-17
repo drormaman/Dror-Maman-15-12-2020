@@ -7,11 +7,9 @@ import { Button, Divider, Typography } from "@material-ui/core";
 import { formatDate, numberWithThousandsCommas } from "../helpers";
 import {
 	StyledItemCard,
-	StyledCardHeader,
-	StyledCardFooter
+	StyledCardHeader
 } from "./styled/StyledCardComponents";
 import CheckIcon from "@material-ui/icons/Check";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 interface ItemCardProps {
 	item: Item;

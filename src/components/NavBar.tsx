@@ -23,7 +23,7 @@ const LinksDiv = styled.div`
 	display: flex;
 `;
 
-export const NavBar: React.FC<NavBarProps> = ({}) => {
+export const NavBar: React.FC<NavBarProps> = () => {
 	return (
 		<AppBar>
 			<Toolbar>

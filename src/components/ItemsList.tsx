@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { orderedItemsState, receivedItemsState } from "../atoms/Items";
+import { EmptyListMessage } from "./EmptyListMessage";
 import { ItemCard } from "./ItemCard";
 import { StyledList } from "./styled/StyledListComponents";
 
@@ -14,9 +15,13 @@ export const ItemsList: React.FC<ItemsListProps> = ({ received }) => {
 	);
 	return (
 		<StyledList>
-			{itemsList.map((item, i) => {
-				return <ItemCard key={i} item={item} received={received} />;
-			})}
+			{itemsList.length !== 0 ? (
+				itemsList.map((item, i) => {
+					return <ItemCard key={i} item={item} received={received} />;
+				})
+			) : (
+				<EmptyListMessage />
+			)}
 		</StyledList>
 	);
 };

@@ -1,4 +1,4 @@
-import { AppBar, Typography } from "@material-ui/core";
+import { AppBar } from "@material-ui/core";
 import { TabContext, TabList, TabPanel } from "@material-ui/lab";
 import React, { useState } from "react";
 import { ItemsList } from "./ItemsList";
