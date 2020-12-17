@@ -7,9 +7,7 @@ import {
 	StyledNavBarLink
 } from "./styled/StyledNavBarComopnents";
 
-interface NavBarProps {}
-
-export const NavBar: React.FC<NavBarProps> = () => {
+export const NavBar: React.FC = () => {
 	return (
 		<AppBar>
 			<Toolbar>

@@ -9,3 +9,15 @@ export function numberWithThousandsCommas(price: number): string {
 	const fixedPrice: string = `${price.toFixed(2)}`;
 	return fixedPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export async function getCurrentExhangeRate(
+	coin: string = "ILS"
+): Promise<number> {
+	try {
+		const res = await fetch("https://api.exchangeratesapi.io/latest?base=USD");
+		const { rates } = await res.json();
+		return rates[coin];
+	} catch (error) {
+		throw new Error("There was a problem fetching the exchange rate");
+	}
+}
