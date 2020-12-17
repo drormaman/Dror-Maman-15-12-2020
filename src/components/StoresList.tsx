@@ -1,13 +1,20 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { storesListState } from "../atoms/Items";
+import {
+	storesOrderedListState,
+	storesReceivedListState
+} from "../atoms/Items";
 import { StoreCard } from "./StoreCard";
 import { StyledList } from "./styled/StyledListComponents";
 
-interface StoresListProps {}
+interface StoresListProps {
+	received: boolean;
+}
 
-export const StoresList: React.FC<StoresListProps> = ({}) => {
-	const storesList = useRecoilValue(storesListState);
+export const StoresList: React.FC<StoresListProps> = ({ received }) => {
+	const storesList = useRecoilValue(
+		received ? storesReceivedListState : storesOrderedListState
+	);
 
 	return (
 		<StyledList>

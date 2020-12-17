@@ -10,3 +10,8 @@ export const StyledCardHeader = styled.header`
 	display: flex;
 	justify-content: space-between;
 `;
+
+export const StyledCardFooter = styled.footer`
+	display: flex;
+	justify-content: space-between;
+`;

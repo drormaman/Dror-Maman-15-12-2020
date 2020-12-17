@@ -11,77 +11,94 @@ export const receivedItemsState = selector<Item[]>({
 	key: "receivedItemsState",
 	get: ({ get }) => {
 		const items = get(itemsListState);
-		const received = items
-			.filter(item => item.received)
-			.sort(
-				(a, b) => b.estimatedDelivery.getTime() - a.estimatedDelivery.getTime()
-			);
-		return received;
+		return filterReceivedItemsArray(items);
 	}
 });
 
-export const totalSumOfReceivedProductsState = selector<number>({
-	key: "totalSumOfReceivedProductsState",
-	get: ({ get }) => {
-		const receivedProducts = get(receivedItemsState);
-		const sumPrices: number = receivedProducts.reduce((sum, prod) => {
-			return sum + prod.price;
-		}, 0);
-		return sumPrices;
-	}
-});
-
-export const notReceivedItemsState = selector<Item[]>({
-	key: "notReceivedItemsState",
+export const orderedItemsState = selector<Item[]>({
+	key: "orderedItemsState",
 	get: ({ get }) => {
 		const items = get(itemsListState);
-		const notReceived = items
-			.filter(item => !item.received)
-			.sort(
-				(a, b) => a.estimatedDelivery.getTime() - b.estimatedDelivery.getTime()
-			);
-		return notReceived;
+		return filterOrderedItemsArray(items);
 	}
 });
 
-export const totalSumOfOrderedProductsState = selector<number>({
-	key: "totalSumOfOrderedProductsState",
+export const totalSumOfReceivedItemsState = selector<number>({
+	key: "totalSumOfReceivedItemsState",
 	get: ({ get }) => {
-		const unreceivedProducts = get(notReceivedItemsState);
-		const sumPrices: number = unreceivedProducts.reduce((sum, prod) => {
-			return sum + prod.price;
-		}, 0);
-		return sumPrices;
+		const items = get(receivedItemsState);
+		return getTotalPrice(items);
 	}
 });
+
+export const totalSumOfOrderedItemsState = selector<number>({
+	key: "totalSumOfOrderedItemsState",
+	get: ({ get }) => {
+		const items = get(orderedItemsState);
+		return getTotalPrice(items);
+	}
+});
+
+export const storesReceivedListState = selector<Store[]>({
+	key: "storesReceivedListState",
+	get: ({ get }) => {
+		const items = get(receivedItemsState);
+		return reduceItemsToStores(items);
+	}
+});
+
+export const storesOrderedListState = selector<Store[]>({
+	key: "storesOrderedListState",
+	get: ({ get }) => {
+		const items = get(orderedItemsState);
+		return reduceItemsToStores(items);
+	}
+});
+
+function filterReceivedItemsArray(items: Item[]): Item[] {
+	return items
+		.filter(item => item.received)
+		.sort(
+			(a, b) => b.estimatedDelivery.getTime() - a.estimatedDelivery.getTime()
+		);
+}
+
+function filterOrderedItemsArray(items: Item[]): Item[] {
+	return items
+		.filter(item => !item.received)
+		.sort(
+			(a, b) => a.estimatedDelivery.getTime() - b.estimatedDelivery.getTime()
+		);
+}
 
 interface ReduceStoreObj {
 	[key: string]: Store;
 }
 
-export const storesListState = selector<Store[]>({
-	key: "storesListState",
-	get: ({ get }) => {
-		const items = get(itemsListState);
-		const storesObj: ReduceStoreObj = {};
-		const stores: ReduceStoreObj = items.reduce((storesObj, item: Item) => {
-			if (!storesObj[item.onlineStore]) {
-				storesObj[item.onlineStore] = {
-					storeName: item.onlineStore,
-					numOfItems: 1,
-					sumOfItemsPrices: item.price
-				};
-			} else {
-				const store: Store = storesObj[item.onlineStore];
-				storesObj[item.onlineStore] = {
-					...store,
-					numOfItems: store.numOfItems + 1,
-					sumOfItemsPrices: store.sumOfItemsPrices + item.price
-				};
-			}
-			return storesObj;
-		}, storesObj);
+function reduceItemsToStores(items: Item[]): Store[] {
+	const storesObj: ReduceStoreObj = {};
+	const stores: ReduceStoreObj = items.reduce((storesObj, item: Item) => {
+		if (!storesObj[item.onlineStore]) {
+			storesObj[item.onlineStore] = {
+				storeName: item.onlineStore,
+				numOfItems: 1,
+				sumOfItemsPrices: item.price
+			};
+		} else {
+			const store: Store = storesObj[item.onlineStore];
+			storesObj[item.onlineStore] = {
+				...store,
+				numOfItems: store.numOfItems + 1,
+				sumOfItemsPrices: store.sumOfItemsPrices + item.price
+			};
+		}
+		return storesObj;
+	}, storesObj);
+	return Object.values(stores);
+}
 
-		return Object.values(stores);
-	}
-});
+function getTotalPrice(items: Item[]): number {
+	return items.reduce((sum, prod) => {
+		return sum + prod.price;
+	}, 0);
+}

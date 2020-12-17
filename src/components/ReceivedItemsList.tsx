@@ -1,35 +1,24 @@
-import React, { useState } from "react";
-import { AppBar, IconButton, Tooltip } from "@material-ui/core";
+import { AppBar, Typography } from "@material-ui/core";
 import { TabContext, TabList, TabPanel } from "@material-ui/lab";
+import React, { useState } from "react";
 import { ItemsList } from "./ItemsList";
+import { MyOrdersBottomBar } from "./MyOrdersBottomBar";
 import { StoresList } from "./StoresList";
 import {
 	StyledContainer,
 	StyledListContainer,
 	StyledTab
 } from "./styled/StyledListComponents";
-import AddIcon from "@material-ui/icons/Add";
-import { AddItemModal } from "./AddItemModal";
-import { MyOrdersBottomBar } from "./MyOrdersBottomBar";
 
-interface MyOrdersListProps {}
-
+interface ReceivedItemsListProps {}
 const TAB_VALUE_ITEMS = "items";
 const TAB_VALUE_STORES = "stores";
 
-export const MyOrdersList: React.FC<MyOrdersListProps> = () => {
-	const [openModal, setOpenModal] = useState(false);
+export const ReceivedItemsList: React.FC<ReceivedItemsListProps> = () => {
 	const [value, setValue] = useState("items");
-	const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+	const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
 		setValue(newValue);
 	};
-	function handleModalClose() {
-		setOpenModal(false);
-	}
-	function handleModalOpen() {
-		setOpenModal(true);
-	}
-
 	return (
 		<StyledContainer elevation={3}>
 			<TabContext value={value}>
@@ -40,23 +29,17 @@ export const MyOrdersList: React.FC<MyOrdersListProps> = () => {
 						<StyledTab label="Items" value={TAB_VALUE_ITEMS} />
 						<StyledTab label="Stores" value={TAB_VALUE_STORES} />
 					</TabList>
-					<Tooltip arrow title="Add Item" style={{ flexGrow: 1 }}>
-						<IconButton color="inherit" onClick={handleModalOpen}>
-							<AddIcon />
-						</IconButton>
-					</Tooltip>
 				</AppBar>
 				<StyledListContainer>
 					<TabPanel value={TAB_VALUE_ITEMS}>
-						<ItemsList received={false} />
+						<ItemsList received={true} />
 					</TabPanel>
 					<TabPanel value={TAB_VALUE_STORES}>
-						<StoresList received={false} />
+						<StoresList received={true} />
 					</TabPanel>
 				</StyledListContainer>
 			</TabContext>
-			<MyOrdersBottomBar received={false} />
-			<AddItemModal open={openModal} handleClose={handleModalClose} />
+			<MyOrdersBottomBar received={true} />
 		</StyledContainer>
 	);
 };

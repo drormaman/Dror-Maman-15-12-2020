@@ -7,15 +7,18 @@ import { Button, Divider, Typography } from "@material-ui/core";
 import { formatDate, numberWithThousandsCommas } from "../helpers";
 import {
 	StyledItemCard,
-	StyledCardHeader
+	StyledCardHeader,
+	StyledCardFooter
 } from "./styled/StyledCardComponents";
 import CheckIcon from "@material-ui/icons/Check";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 interface ItemCardProps {
 	item: Item;
+	received: boolean;
 }
 
-export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
+export const ItemCard: React.FC<ItemCardProps> = ({ item, received }) => {
 	const exchangeRateToILS = useRecoilValue(exchangeRateToIlsState);
 	const setItemsList = useSetRecoilState(itemsListState);
 
@@ -40,14 +43,20 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 				<Typography gutterBottom={false} variant="h6">
 					{item.itemName}
 				</Typography>
-				<Button
-					variant="text"
-					size="small"
-					color="primary"
-					startIcon={<CheckIcon fontSize="small" />}
-					onClick={handleReceived}>
-					Mark as received
-				</Button>
+				{received ? (
+					<div style={{ display: "flex", alignItems: "center" }}>
+						<CheckIcon fontSize="small" />
+						<Typography variant="subtitle1">Arrived</Typography>
+					</div>
+				) : (
+					<Button
+						variant="text"
+						size="small"
+						color="primary"
+						onClick={handleReceived}>
+						Mark as received
+					</Button>
+				)}
 			</StyledCardHeader>
 			<Divider />
 			<Typography variant="subtitle2">{item.onlineStore}</Typography>
@@ -59,9 +68,11 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 					item.price * exchangeRateToILS
 				)} )`}</Typography>
 			</Typography>
-			<Typography variant="subtitle1">{`Delivery EST date: ${formatDate(
-				item.estimatedDelivery
-			)}`}</Typography>
+			{!received && (
+				<Typography variant="subtitle1">{`Delivery EST date: ${formatDate(
+					item.estimatedDelivery
+				)}`}</Typography>
+			)}
 		</StyledItemCard>
 	);
 };

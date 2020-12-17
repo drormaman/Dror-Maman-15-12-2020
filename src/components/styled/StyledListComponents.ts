@@ -5,7 +5,6 @@ export const StyledContainer = styled(Paper)`
 	max-width: 600px;
 	width: 100%;
 	margin: 50px auto;
-	/* border: 2px solid black; */
 	position: relative;
 `;
 
@@ -13,8 +12,6 @@ export const StyledListContainer = styled.div`
 	width: 100%;
 	overflow-y: auto;
 	background-color: #f5f5f5;
-	/* padding-bottom: 50px; */
-	/* border: 1px dashed black; */
 	max-height: 60vh;
 
 	&::-webkit-scrollbar {
