@@ -20,6 +20,17 @@ export const receivedItemsState = selector<Item[]>({
 	}
 });
 
+export const totalSumOfReceivedProductsState = selector<number>({
+	key: "totalSumOfReceivedProductsState",
+	get: ({ get }) => {
+		const receivedProducts = get(receivedItemsState);
+		const sumPrices: number = receivedProducts.reduce((sum, prod) => {
+			return sum + prod.price;
+		}, 0);
+		return sumPrices;
+	}
+});
+
 export const notReceivedItemsState = selector<Item[]>({
 	key: "notReceivedItemsState",
 	get: ({ get }) => {
@@ -33,7 +44,18 @@ export const notReceivedItemsState = selector<Item[]>({
 	}
 });
 
-interface ReduceObj {
+export const totalSumOfOrderedProductsState = selector<number>({
+	key: "totalSumOfOrderedProductsState",
+	get: ({ get }) => {
+		const unreceivedProducts = get(notReceivedItemsState);
+		const sumPrices: number = unreceivedProducts.reduce((sum, prod) => {
+			return sum + prod.price;
+		}, 0);
+		return sumPrices;
+	}
+});
+
+interface ReduceStoreObj {
 	[key: string]: Store;
 }
 
@@ -41,8 +63,8 @@ export const storesListState = selector<Store[]>({
 	key: "storesListState",
 	get: ({ get }) => {
 		const items = get(itemsListState);
-		const storesObj: ReduceObj = {};
-		const stores: ReduceObj = items.reduce((storesObj, item: Item) => {
+		const storesObj: ReduceStoreObj = {};
+		const stores: ReduceStoreObj = items.reduce((storesObj, item: Item) => {
 			if (!storesObj[item.onlineStore]) {
 				storesObj[item.onlineStore] = {
 					storeName: item.onlineStore,

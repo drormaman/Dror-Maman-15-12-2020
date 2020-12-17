@@ -10,6 +10,7 @@ import {
 } from "./styled/StyledListComponents";
 import AddIcon from "@material-ui/icons/Add";
 import { AddItemModal } from "./AddItemModal";
+import { MyOrdersBottomBar } from "./MyOrdersBottomBar";
 
 interface MyOrdersListProps {}
 
@@ -54,6 +55,7 @@ export const MyOrdersList: React.FC<MyOrdersListProps> = () => {
 					</TabPanel>
 				</StyledListContainer>
 			</TabContext>
+			<MyOrdersBottomBar />
 			<AddItemModal open={openModal} handleClose={handleModalClose} />
 		</StyledContainer>
 	);
